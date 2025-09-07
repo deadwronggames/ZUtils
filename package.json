@@ -2,9 +2,10 @@
     "name": "com.deadwronggames.zutils",
     "version": "1.0.0",
     "displayName": "ZUtils",
+    "description": "use code via DeadWrongGames.ZUtils namespace",
     "unity": "2022.3",
     "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
+        "com.unity.nuget.newtonsoft-json": "3.2.1" // com.unity.nuget.newtonsoft-json
     },
     "author": {
         "name": "DeadWrong Games",

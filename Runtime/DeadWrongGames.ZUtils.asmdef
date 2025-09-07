@@ -1,7 +1,9 @@
 {
     "name": "DeadWrongGames.ZUtils",
     "rootNamespace": "DeadWrongGames.ZUtils",
-    "references": [],
+    "references": [
+        ""
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
