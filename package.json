@@ -1,0 +1,13 @@
+{
+    "name": "com.deadwronggames.zutils",
+    "version": "1.0.0",
+    "displayName": "ZUtils",
+    "unity": "2022.3",
+    "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
+    },
+    "author": {
+        "name": "DeadWrong Games",
+        "url": "hhtps://x.com/DeadWrong_Games"
+    }
+}
