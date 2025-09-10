@@ -773,47 +773,6 @@ namespace DeadWrongGames.ZUtils
             return steadyState;
         }
         
-        public static void Print(this object obj, string prefix = null)
-        {
-            string prefixString = (!string.IsNullOrEmpty(prefix)) ? prefix + ": " : "";
-            Debug.Log(prefixString + obj);
-        }
-        public static void PrintIEnumerable<TEntry>(this IEnumerable<TEntry> entries, string name = null)
-        {
-            List<TEntry> entryList = entries.ToList();
-            int numberOfEntries = entryList.Count;
-            
-            string entryPluralizedString = (numberOfEntries == 1) ? "entry" : "entries";
-            Debug.Log($"{(!string.IsNullOrEmpty(name) ? name : "Enumerable")} has {numberOfEntries} {entryPluralizedString}");
-            for (int i = 0; i < numberOfEntries; i++) Debug.Log($"'--- Index {i}: {entryList[i]}");
-        }
-        public static void PrintDictionary<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, string name = null)
-        {
-            if (dictionary == null || dictionary.Count == 0)
-            {
-                Debug.Log($"{(!string.IsNullOrEmpty(name) ? name : "Dictionary")} is empty.");
-                return;
-            }
-
-            Debug.Log($"{(!string.IsNullOrEmpty(name) ? name : "Dictionary")} contains {dictionary.Count} entries:");
-            foreach (KeyValuePair<TKey, TValue> kvp in dictionary)
-            {
-                if (kvp.Value is IEnumerable valueEnumerable && kvp.Value is not string)
-                {
-                    // convert to a list to check emptiness
-                    List<object> valueList = valueEnumerable.Cast<object>().ToList();
-                    if (valueList.Count == 0) Debug.Log($"--- {kvp.Key}: Empty {kvp.Value.GetType().Name}");
-                    else {
-                        Debug.Log($"--- {kvp.Key}:");
-                        foreach (object subValue in valueList)
-                            Debug.Log($"------ {subValue}");
-                    }
-                }
-                else Debug.Log($"--- {kvp.Key}: {kvp.Value}");
-            }
-        }
-
-
         public static int DebugShowAnimationAtFrame(Animator animator, string animationName, int frame)
         {
             AnimationClip animationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == animationName);
