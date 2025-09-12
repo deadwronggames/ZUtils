@@ -8,8 +8,7 @@ namespace DeadWrongGames.ZUtils
 {
     public static class ZMethodsCrypto
     {
-        private const string RESOURCE_PATH = "Assets/Resources";
-        private const string KEY_FOLDER_NAME = "CryptoKey";
+        private const string KEY_FOLDER_PATH = "Assets/Resources/CryptoKey";
         private const string KEY_FILE_NAME = "CryptoKeyContainer";
         
         // encrypt string into byte array
@@ -70,15 +69,14 @@ namespace DeadWrongGames.ZUtils
             string newIV = Convert.ToBase64String(aesProvider.IV);
             string newKey = Convert.ToBase64String(aesProvider.Key);
 
-            // Create path to save pair to
-            string keyPath = Path.Combine(RESOURCE_PATH, KEY_FOLDER_NAME);
-            if (!Directory.Exists(keyPath))
-                Directory.CreateDirectory(keyPath);
+            // Create folder to save pair to
+            if (!Directory.Exists(KEY_FOLDER_PATH))
+                Directory.CreateDirectory(KEY_FOLDER_PATH);
             
             // Create SO save instance
             CryptoKeyContainer instance = ScriptableObject.CreateInstance<CryptoKeyContainer>();
             (instance.IV, instance.Key) = (newIV, newKey);
-            string fullPath = AssetDatabase.GenerateUniqueAssetPath($"{Path.Combine(keyPath, $"{KEY_FILE_NAME}.asset")}");
+            string fullPath = AssetDatabase.GenerateUniqueAssetPath($"{Path.Combine(KEY_FOLDER_PATH, $"{KEY_FILE_NAME}.asset")}");
             
             AssetDatabase.CreateAsset(instance, fullPath);
             EditorUtility.FocusProjectWindow();
