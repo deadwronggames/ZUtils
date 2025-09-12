@@ -165,5 +165,23 @@ namespace DeadWrongGames.ZUtils
                 else Debug.Log($"--- {kvp.Key}: {kvp.Value}");
             }
         }
+        
+        public static int DebugShowAnimationAtFrame(Animator animator, string animationName, int frame)
+        {
+            AnimationClip animationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == animationName);
+            if (animationClip == null)
+            {
+                Debug.LogWarning($"{animationName} not found.");
+                return -1;
+            }
+            float totalFrames = 60 * animationClip.length;
+            
+            frame = (int)(frame % (totalFrames + 1));
+            Debug.Log($"Frame {frame} of {totalFrames}.");
+            
+            animator.speed = 0;
+            animator.Play(animationName, -1, frame / totalFrames);
+            return frame + 1;
+        }
     }
 }

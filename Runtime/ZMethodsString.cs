@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace DeadWrongGames.ZUtils
@@ -53,5 +55,50 @@ namespace DeadWrongGames.ZUtils
 
             return result.ToString();
         }
+        
+        public static string ReplaceIntegersInString(this string input, int newNumber)
+        {
+            const string pattern = @"\d+";
+            return Regex.Replace(input, pattern, replacement: newNumber.ToString());
+        }
+        
+        public static string ReplaceLastIntegerInString(this string input, int newNumber)
+        {
+            const string pattern = @"\d+";
+            MatchCollection matches = Regex.Matches(input, pattern);
+            if (matches.Count == 0) return input;
+
+            Match lastMatch = matches[^1];
+
+            return Regex.Replace(input, pattern, match => (match.Index == lastMatch.Index) ? newNumber.ToString() : match.Value); // replace last match, leave others unchanged
+        }
+        
+        public static string FormattedInspectorString(string stringToConvert)
+        {
+            stringToConvert = stringToConvert.Replace("\\n", "\n");
+            stringToConvert = stringToConvert.Replace("\\t", "\t");
+            stringToConvert = stringToConvert.Replace("\\v", "\v");
+            stringToConvert = stringToConvert.Replace("\\u202F", "\u202F"); // allows no line break (basically an mbox around word before and after)
+            stringToConvert = stringToConvert.Replace("\\u2009", "\u2009"); // allows line break
+            
+            return stringToConvert;
+        }
+        
+        public static string ColorizeString(this string stringToColorize, Color color) => $"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>{stringToColorize}</color>";
+        public static string ResizeString(this string stringToColorize, int fontSize) => $"<size={fontSize}>{stringToColorize}</size>";
+        
+        public static string DropFirstWord(this string input)
+        {
+            int indexSecondWord = 0;
+            foreach (char letter in input[1..]) // drop the first letter
+            {
+                indexSecondWord++;
+                if (char.IsUpper(letter)) break;
+            }
+
+            return input[indexSecondWord..];
+        }
+        
+        public static int CountOccurenceOfSpecificCharacters(this string input, params char[] characters) => (string.IsNullOrEmpty(input)) ? 0 : input.Count(characters.Contains);
     }
 }

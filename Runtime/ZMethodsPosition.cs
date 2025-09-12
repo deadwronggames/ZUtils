@@ -7,7 +7,7 @@ namespace DeadWrongGames.ZUtils
     {
         public static Vector2[] GetRandomPositionsSpiral(int count, float distanceParameter, Vector2 centerPosition = default)
         {
-            System.Random random = ZMethods.GetSystemRandom();
+            System.Random random = ZMethodsRandom.GetSystemRandom();
             Vector2[] positions = new Vector2[count];
 
             // generate the positions
@@ -34,7 +34,7 @@ namespace DeadWrongGames.ZUtils
         public static Vector2[] GetRandomPositionsInSquare(int count, float xMin, float xMax, float yMin, float yMax)
         {
             Vector2[] positions = new Vector2[count];
-            System.Random rand = ZMethods.GetSystemRandom();
+            System.Random rand = ZMethodsRandom.GetSystemRandom();
 
             for (int i = 0; i < count; i++)
             {
