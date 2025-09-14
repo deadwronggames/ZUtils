@@ -8,6 +8,12 @@ namespace DeadWrongGames.ZUtils
     public static class ZMethods
     {
         public static Action EmptyAction { get; } = () => { };
+
+        public static T LazyInitialization<T>(ref T initializationObject, Func<T> initializationFunc) where T : class
+        {
+            return initializationObject ??= initializationFunc.Invoke();
+        }
+
         
         public static bool IsDefaultValue<T>(T value)         { return EqualityComparer<T>.Default.Equals(value, default); }
         public static bool IsSameValue<T>(T value1, T value2) { return EqualityComparer<T>.Default.Equals(value1, value2); }
