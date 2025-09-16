@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 namespace DeadWrongGames.ZUtils
 {
+    // TODO maybe make this a service MB instead
+    
     /// <summary>
     /// Provides centralized pooling functionality for any Unity component using Object Pools. 
     /// Each pool is associated with a specific prefab to manage its instances.
@@ -18,13 +20,13 @@ namespace DeadWrongGames.ZUtils
         // clear pools on scene change
         static ZPooling()
         {
-            SceneManager.activeSceneChanged += (_, _) => ClearPools(); // I think in general it works as intended but in editor (with quick play options enabled) when starting directly into a map, then there it does not get invoked
+            SceneManager.activeSceneChanged += (_, _) => ClearPools(); // I think in general it works as intended but in editor (with quick play options enabled) when starting directly into a map, then it does not get invoked
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)] // TODO does it work with regard to above comment? don't think so
         private static void ClearPools()
         {
-            Debug.Log("ClearPools()");
+            "Clearing Pools()".Log(level: ZMethodsDebug.LogLevel.Info);
             foreach (IObjectPool<TComponent> pool in s_poolDict.Values) pool?.Clear();
             s_poolDict.Clear();
         }
@@ -52,7 +54,7 @@ namespace DeadWrongGames.ZUtils
         {
             if (prefab == null)
             {
-                Debug.LogWarning($"{nameof(ZPooling<TComponent>)}.{nameof(GetPooledComponent)}: Prefab is null. Returning default. ");
+                "Prefab is null. Returning default.".Log(level: ZMethodsDebug.LogLevel.Warning);
                 return default;
             }
 
@@ -61,7 +63,7 @@ namespace DeadWrongGames.ZUtils
                 // validate prefab
                 if (prefab.GetComponent<TComponent>() == null) 
                 {
-                    Debug.LogWarning($"{nameof(ZPooling<TComponent>)}.{nameof(GetPooledComponent)}: Prefab does not have a Component {nameof(TComponent)}. Returning default. ");
+                   $"Prefab does not have a Component {nameof(TComponent)}. Returning default.".Log(level: ZMethodsDebug.LogLevel.Warning);
                     return default;
                 }    
                     
