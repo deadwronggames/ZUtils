@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 
 namespace DeadWrongGames.ZUtils
@@ -87,23 +84,5 @@ namespace DeadWrongGames.ZUtils
         }
         
         public static Color SetAlpha(this Color color, float alpha) => new(color.r, color.g, color.b, alpha);
-        
-        public static List<TScriptableObject> FindAllSOAssetsIncludingSubclasses<TScriptableObject>() where TScriptableObject : ScriptableObject
-        {
-            // Find all SOs
-            string[] guids = AssetDatabase.FindAssets("t:ScriptableObject");
-            
-            // Load each SO and return it if it matches the type
-            List<TScriptableObject> result = new();
-            foreach (string guid in guids)
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                ScriptableObject asset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
-                if (asset is TScriptableObject typedAsset) // includes subclasses
-                    result.Add(typedAsset);
-            }
-
-            return result;
-        }
     }
 }

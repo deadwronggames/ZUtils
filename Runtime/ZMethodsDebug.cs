@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 
 namespace DeadWrongGames.ZUtils
@@ -187,5 +188,25 @@ namespace DeadWrongGames.ZUtils
             animator.Play(animationName, -1, frame / totalFrames);
             return frame + 1;
         }
+        
+#if UNITY_EDITOR
+        public static List<TScriptableObject> FindAllSOAssetsIncludingSubclasses<TScriptableObject>() where TScriptableObject : ScriptableObject
+        {
+            // Find all SOs
+            string[] guids = AssetDatabase.FindAssets("t:ScriptableObject");
+            
+            // Load each SO and return it if it matches the type
+            List<TScriptableObject> result = new();
+            foreach (string guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                ScriptableObject asset = AssetDatabase.LoadAssetAtPath<ScriptableObject>(path);
+                if (asset is TScriptableObject typedAsset) // includes subclasses
+                    result.Add(typedAsset);
+            }
+
+            return result;
+        }
+#endif
     }
 }
