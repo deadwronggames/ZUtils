@@ -15,6 +15,7 @@ namespace DeadWrongGames.ZUtils
             Critical,
             Error,
             Warning,
+            Assertion,
             Info,
             Verbose
         }
@@ -61,11 +62,13 @@ namespace DeadWrongGames.ZUtils
             // Choose console color (only for Unity console, not file)
             string coloredLogInfo = level switch
             {
-                LogLevel.Critical => $"<color=magenta>{logInfo}</color>",
-                LogLevel.Error    => $"<color=red>{logInfo}</color>",
-                LogLevel.Warning  => $"<color=yellow>{logInfo}</color>",
-                LogLevel.Verbose  => $"<color=gray>{logInfo}</color>",
-                _                 => logInfo
+                LogLevel.Critical  => $"<color=magenta>{logInfo}</color>",
+                LogLevel.Error     => $"<color=red>{logInfo}</color>",
+                LogLevel.Warning   => $"<color=yellow>{logInfo}</color>",
+                LogLevel.Assertion => $"<color=green>{logInfo}</color>",
+                LogLevel.Info      => logInfo,
+                LogLevel.Verbose   => $"<color=gray>{logInfo}</color>",
+                _ => throw new ArgumentOutOfRangeException(nameof(level), level, null)
             };
 
             // Unity console message
@@ -79,6 +82,7 @@ namespace DeadWrongGames.ZUtils
                 case LogLevel.Warning:
                     Debug.LogWarning(unityMessage);
                     break;
+                case LogLevel.Assertion:
                 case LogLevel.Info:
                 case LogLevel.Verbose:
                     Debug.Log(unityMessage);
