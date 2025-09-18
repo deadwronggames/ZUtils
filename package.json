@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "displayName": "ZUtils",
     "description": "Several static methods and helpers useful for any game.\n\nUse via DeadWrongGames.ZUtils namespace",
-    "unity": "2022.3",
+    "unity": "6.0",
     "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1"
     },
