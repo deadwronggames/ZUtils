@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,23 +7,36 @@ namespace DeadWrongGames.ZUtils
 {
     public static class ZMethodsTween
     {
-        // TODO use tween library
+        public static float RemainingTime(this Tween tween)
+        {
+            return (tween == null) ? 
+                0f : 
+                (1 - tween.ElapsedPercentage()) * tween.Duration();
+        }
         
-        // public static Tween ShrinkHeightRectTransform(RectTransform rectTransformToShrink, float duration, RectTransform rectTransformParentLayoutGroup = null, bool doDestroyAfterShrink = true, Ease ease = Ease.Linear)
-        // {
-        //     // shrink height to zero then destroy
-        //     Action onCompleteAction = (doDestroyAfterShrink) ? () => UnityEngine.Object.Destroy(rectTransformToShrink.gameObject) : EmptyAction;
-        //     Tween shrinkTween = rectTransformToShrink
-        //         .DOSizeDelta(new Vector2(rectTransformToShrink.sizeDelta.x, 0), duration)
-        //         .SetEase(ease)
-        //         .OnComplete(onCompleteAction.Invoke);
-        // 
-        //     // force layout update during shrinking
-        //     if (rectTransformParentLayoutGroup != null) shrinkTween.OnUpdate(() => { LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransformParentLayoutGroup); });
-        // 
-        //     return shrinkTween;
-        // }
-        // 
-        // public static float RemainingTime(this Tween tween) => (tween == null) ? 0f : tween.Duration() * (1 - tween.ElapsedPercentage());
+        public static void KillTweensRecursively(this Transform transform)  // TODO not sure if it maybe is already recursive
+        {
+            DOTween.Kill(transform.gameObject);
+            transform.ForEachChild(KillTweensRecursively);
+        }
+        
+        public static Tween DOShrinkHeightRectTransform(this RectTransform rt, float duration, RectTransform rectTransformParentLayoutGroup = null, bool doDestroyAfterShrink = true, Ease ease = Ease.Linear)
+        {
+            // shrink height to zero then destroy
+            Action onCompleteAction = (doDestroyAfterShrink) ? () => UnityEngine.Object.Destroy(rt.gameObject) : ZMethods.EmptyAction;
+            Tween shrinkTween = rt
+                .DOSizeDelta(new Vector2(rt.sizeDelta.x, 0), duration)
+                .SetEase(ease)
+                .OnComplete(onCompleteAction.Invoke);
+        
+            // force layout update during shrinking
+            if (rectTransformParentLayoutGroup != null) shrinkTween.OnUpdate(() => { LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransformParentLayoutGroup); });
+        
+            return shrinkTween;
+        }
+        
+        // Wrappers for DOTween pro
+        public static Tween DOColor(this Graphic graphic, Color endValue, float duration) => DOTween.To(getter: () => graphic.color, setter: c => graphic.color = c, endValue, duration);
+
     }
 }

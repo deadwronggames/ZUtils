@@ -94,7 +94,7 @@ namespace DeadWrongGames.ZUtils
 
 #if !UNITY_EDITOR
         // Emit to file (without color tags)
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
             
         // TODO implement but make sure file does not get too big (see TryWriteFile in ZMethodsFileIO)
         // string logFileMessage = $"{logInfo} {sourceInfo}{Environment.NewLine}{message}{Environment.NewLine}";
