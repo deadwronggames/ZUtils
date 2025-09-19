@@ -2,7 +2,8 @@
     "name": "DeadWrongGames.ZUtils",
     "rootNamespace": "DeadWrongGames.ZUtils",
     "references": [
-        "DOTween.Modules"
+        "DOTween.Modules",
+        "DeadWrongGames.ZConstants"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

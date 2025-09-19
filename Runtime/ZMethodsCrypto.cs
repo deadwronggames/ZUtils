@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using DeadWrongGames.ZConstants;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,7 +9,6 @@ namespace DeadWrongGames.ZUtils
 {
     public static class ZMethodsCrypto
     {
-        private const string KEY_FOLDER_PATH = "Assets/Resources/CryptoKey";
         private const string KEY_FILE_NAME = "CryptoKeyContainer";
         
         // encrypt string into byte array
@@ -54,7 +54,7 @@ namespace DeadWrongGames.ZUtils
         
         private static (string iv, string key) GetCryptoPair()
         {
-            CryptoKeyContainer keyContainer = Resources.Load<CryptoKeyContainer>($"CryptoKey/{KEY_FILE_NAME}");
+            CryptoKeyContainer keyContainer = Resources.Load<CryptoKeyContainer>(KEY_FILE_NAME);
 
             return (keyContainer == null) ? 
                 CreateCryptoPair() : 
@@ -70,13 +70,13 @@ namespace DeadWrongGames.ZUtils
             string newKey = Convert.ToBase64String(aesProvider.Key);
 
             // Create folder to save pair to
-            if (!Directory.Exists(KEY_FOLDER_PATH))
-                Directory.CreateDirectory(KEY_FOLDER_PATH);
+            if (!Directory.Exists(Constants.SERVICE_RESOURCE_FULL_PATH))
+                Directory.CreateDirectory(Constants.SERVICE_RESOURCE_FULL_PATH);
             
             // Create SO save instance
             CryptoKeyContainer instance = ScriptableObject.CreateInstance<CryptoKeyContainer>();
             (instance.IV, instance.Key) = (newIV, newKey);
-            string fullPath = AssetDatabase.GenerateUniqueAssetPath($"{Path.Combine(KEY_FOLDER_PATH, $"{KEY_FILE_NAME}.asset")}");
+            string fullPath = AssetDatabase.GenerateUniqueAssetPath(Path.Combine(Constants.SERVICE_RESOURCE_FULL_PATH, KEY_FILE_NAME) + ".asset");
             
             AssetDatabase.CreateAsset(instance, fullPath);
             EditorUtility.FocusProjectWindow();

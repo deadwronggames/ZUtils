@@ -5,7 +5,8 @@
     "description": "Several static methods and helpers useful for any game.\n\nUse via DeadWrongGames.ZUtils namespace",
     "unity": "6.0",
     "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "3.2.1"
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.deadwronggames.zconstants": "1.0.0"
     },
     "author": {
         "name": "DeadWrong Games",
