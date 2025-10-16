@@ -4,41 +4,41 @@
 
 # DeadWrongGames ZUtils
 
-A collection of static utility classes for Unity projects, designed to simplify common tasks and improve workflow efficiency. These utilities cover areas ranging from mesh handling to randomization, UI, tweening, and string manipulation.
+A collection of static utility classes and extension classes for Unity projects, designed to simplify common tasks and improve workflow efficiency. These utilities cover areas ranging from mesh handling to randomization, UI, tweening, and string manipulation.
 
 
 ## Overview
 
 The ZUtils library provides the following major areas of functionality:
 
-- Core Utilities (ZMethods), e.g.:
+- Core Utilities (ZMethods), e.g.:<br>
 General-purpose helpers for actions, lazy initialization, float/double comparisons, and safe casting. Utilities for working with enums and dictionaries. Methods for working with 2D arrays and indices, neighbor calculations, and safe numeric operations.
 
-- Audio Utilities (ZMethodsAudio), e.g.:
+- Audio Utilities (ZMethodsAudio), e.g.:<br>
 Manage audio clips and sources, including random selection avoiding recently played clips. Query remaining audio clip time and facilitate audio management.
 
-- Async Utilities (ZMethodsCoroutines)
+- Async Utilities (ZMethodsCoroutines), e.g.:<br>
 Delay actions by frames or time, repeated actions, and cached WaitForSeconds/WaitForSecondsRealtime. Safe stopping of coroutines. TODO extend with Tasks and UniTasks.
 
-- Crypto Utilities (ZMethodsCrypto)
+- Crypto Utilities (ZMethodsCrypto), e.g.:<br>
 Encrypt and decrypt strings using AES. Manage key/IV generation and persistence using ScriptableObjects. Provides secure and convenient encryption handling for e.g. save files.
 
-- Mesh Utilities (ZMethodsMeshes), e.g.:
+- Mesh Utilities (ZMethodsMeshes), e.g.:<br>
 Combine skinned and unskinned meshes into a single SkinnedMeshRenderer
 
-- Position Utilities (ZMethodsPosition), e.g.:
+- Position Utilities (ZMethodsPosition), e.g.:<br>
 Generate random positions in configurable patterns, such as spirals or squares.
 
-- RNG Utilities (ZMethodsRandom), e.g.:
+- RNG Utilities (ZMethodsRandom), e.g.:<br>
 Random selection, shuffling, and weighted random choices, Gaussian, log-normal distributions, probabilistic calculations, coin flips, and vector randomization.
 
-- String Utilities (ZMethodsString), e.g.:
+- String Utilities (ZMethodsString), e.g.:<br>
 Formatting, colorization, resizing, and other UI-friendly manipulations. Converting integers to Roman numerals and replace numbers in strings. Handle escaped characters for Unity inspector display.
 
-- DOTween Utilities (ZMethodsTween), e.g.:
+- DOTween Utilities (ZMethodsTween), e.g.:<br>
 Recursive tween management and handy UI animation wrappers.
 
-- Unity Helpers (ZMethodsUnity), e.g.:
+- Unity Helpers (ZMethodsUnity), e.g.:<br>
 Transform and GameObject operations (traverse children, destroy children, recursive layer assignment). RectTransform helpers for size, stretch, and actual size calculations. Color extensions and safe null checks for Unity objects.
 
 
