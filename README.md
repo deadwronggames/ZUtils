@@ -79,3 +79,6 @@ ZMethodsMeshes.CombineAllMeshes(parentGameObject);
 // Colorize a string for UI
 string coloredText = "Hello World".ColorizeString(Color.red);
 ```
+
+## Notes
+- **Work in progress**, some functionality may change.
