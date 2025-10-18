@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace DeadWrongGames.ZUtils
             return initializationObject ??= initializationFunc.Invoke();
         }
 
-        
+        public static bool AllNotNull(this IEnumerable<object> objects) => objects.All(obj => obj != null);
         public static bool IsDefaultValue<T>(T value)         { return EqualityComparer<T>.Default.Equals(value, default); }
         public static bool IsSameValue<T>(T value1, T value2) { return EqualityComparer<T>.Default.Equals(value1, value2); }
         public static bool IsSameFloatValue(float value1, float value2) => Math.Abs(value1 - value2) <= GetFloatTolerance(value1, value2);
