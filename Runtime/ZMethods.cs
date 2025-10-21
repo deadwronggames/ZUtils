@@ -10,9 +10,9 @@ namespace DeadWrongGames.ZUtils
     {
         public static Action EmptyAction { get; } = () => { };
 
-        public static T LazyInitialization<T>(ref T initializationObject, Func<T> initializationFunc) where T : class
+        public static T LazyInitialization<T>(ref T backingField, Func<T> initializationFunc) where T : class
         {
-            return initializationObject ??= initializationFunc.Invoke();
+            return backingField ??= initializationFunc.Invoke();
         }
 
         public static bool AllNotNull(this IEnumerable<object> objects) => objects.All(obj => obj != null);
