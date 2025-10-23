@@ -36,7 +36,29 @@ namespace DeadWrongGames.ZUtils
         }
         
         // Wrappers for DOTween pro (Yes, I AM cheap!)
-        public static Tween DOColor(this Graphic graphic, Color endValue, float duration) => DOTween.To(getter: () => graphic.color, setter: c => graphic.color = c, endValue, duration);
-        public static Tween DOFillAmount(this Image image, float endValue, float duration) => DOTween.To(getter: () => image.fillAmount, setter: x => image.fillAmount = x, endValue, duration);
+        public static Tween DOColor(this Graphic graphic, Color endValue, float duration) => DOTween.To(
+            getter: () => graphic.color, 
+            setter: c => graphic.color = c, 
+            endValue, 
+            duration
+        );
+        
+        public static Tween DOFillAmount(this Image image, float endValue, float duration) => DOTween.To(
+            getter: () => image.fillAmount, 
+            setter: x => image.fillAmount = x, 
+            endValue, 
+            duration
+        );
+        
+        public static Tween DOFade(this Graphic graphic, float endValue, float duration) => DOTween.To(
+            getter: () => graphic.color.a, 
+            setter: alpha => {
+                Color c = graphic.color;
+                c.a = alpha;
+                graphic.color = c;
+            },
+            endValue,
+            duration
+        );
     }
 }
