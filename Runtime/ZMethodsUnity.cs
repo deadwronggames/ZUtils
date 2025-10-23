@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DeadWrongGames.ZUtils
 {
@@ -30,12 +31,6 @@ namespace DeadWrongGames.ZUtils
         {
             parent.ForEachChild(child => Object.Destroy(child.gameObject));
         }
-        
-        public static Vector2 With(this Vector2 vector, float? x = null, float? y = null)
-            => new(x ?? vector.x, y ?? vector.y);
-        
-        public static Vector3 With(this Vector3 vector, float? x = null, float? y = null, float? z = null)
-            => new(x ?? vector.x, y ?? vector.y, z ?? vector.z);
         
         public static Vector2 ScreenToWorld(this Vector2 screenPosition, Camera camera) => camera.ScreenToWorldPoint(screenPosition);
         
@@ -144,7 +139,36 @@ namespace DeadWrongGames.ZUtils
         }
        
         
-        // Colors
-        public static Color SetAlpha(this Color color, float alpha) => new(color.r, color.g, color.b, alpha);
+        // Convenient modifying of value types
+        public static Vector2 With(this Vector2 vector, float? x = null, float? y = null)
+            => new(x ?? vector.x, y ?? vector.y);
+        
+        public static Vector3 With(this Vector3 vector, float? x = null, float? y = null, float? z = null)
+            => new(x ?? vector.x, y ?? vector.y, z ?? vector.z);
+        
+        public static Color With(this Color color, float? r = null, float? g = null, float? b = null, float? a = null) 
+            => new(r ?? color.r, g ?? color.g, b ?? color.b, a ?? color.a);
+        
+        public static ColorBlock With(
+            this ColorBlock block,
+            Color? normalColor = null,
+            Color? highlightedColor = null,
+            Color? pressedColor = null,
+            Color? selectedColor = null,
+            Color? disabledColor = null,
+            float? colorMultiplier = null,
+            float? fadeDuration = null)
+        {
+            return new ColorBlock
+            {
+                normalColor = normalColor ?? block.normalColor,
+                highlightedColor = highlightedColor ?? block.highlightedColor,
+                pressedColor = pressedColor ?? block.pressedColor,
+                selectedColor = selectedColor ?? block.selectedColor,
+                disabledColor = disabledColor ?? block.disabledColor,
+                colorMultiplier = colorMultiplier ?? block.colorMultiplier,
+                fadeDuration = fadeDuration ?? block.fadeDuration
+            };
+        }
     }
 }
